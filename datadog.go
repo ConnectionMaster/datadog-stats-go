@@ -2,7 +2,6 @@ package datadog
 
 import (
 	"github.com/DataDog/datadog-go/statsd"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -12,15 +11,15 @@ type Datadog struct {
 	Client *statsd.Client
 }
 
-func New(addr string) *Datadog {
+func New(addr string) (*Datadog, error) {
 	client, err := statsd.New(addr)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	dd := &Datadog{Client: client}
 
-	return dd
+	return dd, nil
 }
 
 type loggingResponseWriter struct {
