@@ -47,7 +47,7 @@ func (dd *Datadog) Handler(next http.Handler) http.Handler {
 		t2 := time.Now()
 
 		dd.Client.TimeInMilliseconds("response_time", float64(t2.Sub(t1)/time.Millisecond), dd.Client.Tags, 1)
-		dd.Client.Incr("status_code."+strconv.Itoa(lrw.statusCode), dd.Client.Tags, 1)
+		dd.Client.Incr("response_code."+strconv.Itoa(lrw.statusCode), dd.Client.Tags, 1)
 	}
 
 	return http.HandlerFunc(fn)
